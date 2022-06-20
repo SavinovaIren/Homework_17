@@ -1,14 +1,15 @@
-# main.py
 
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from Schema import movie_schema, movies_schema, director_schema, directors_schema, genres_schema, genre_schema
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JSON_AS_ASCII'] = False
+app.config['RESTX_JSON'] = {'ensure_ascii': False, 'indent': 3}
 db = SQLAlchemy(app)
 
 api = Api(app)
@@ -53,7 +54,7 @@ class MoviesViews(Resource):
         genre_id = request.args.get('genre_id')
         if 'director_id' and 'genre_id':
             all_category = all_category.filter(Movie.director_id == director_id, Movie.genre_id == genre_id)
-    
+
 
         all_movie = all_category.all()
         return movies_schema.dump(all_movie), 200

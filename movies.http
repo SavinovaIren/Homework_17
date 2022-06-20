@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5000/movies/?director_id=2
+GET http://localhost:5000/movies/
 Accept: application/json
 
 ###
